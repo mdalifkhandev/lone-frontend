@@ -30,3 +30,14 @@ export const useApproveLone=()=>{
         },
     })
 }
+
+export const useGetSingleLone=(id:string)=>{
+    return useQuery({
+        queryKey:['getSingleLone', id],
+        queryFn:async()=>{
+            const response= await clientAPI.get(`/lone/${id}`)
+            return response
+        },
+        enabled:!!id
+    })
+}

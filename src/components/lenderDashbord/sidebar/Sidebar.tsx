@@ -2,56 +2,92 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import logo from '@/components/assets/logo.png';
+import { Menu, X } from "lucide-react";
+import logo from "@/components/assets/logo.png";
 import Main from "../dashboard/Main";
-
-
-const Settings = () => <div>Settings Content</div>;
+import Setting from "../setting/Setting";
 
 const sidebarItems = [
-    { label: "Dashboard", component: Main },
-    { label: "Settings", component: Settings },
+  { label: "Dashboard", component: Main },
+  { label: "Settings", component: Setting },
 ];
 
-const Sidebar = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const ActiveComponent = sidebarItems[activeIndex].component;
+const Sidebar: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        <div className="flex">
-        
-            {/* সাইডবারের জন্য পরিবর্তিত কোড */}
-            <aside className="w-64 h-screen bg-red-950 rounded-r-4xl text-white p-4 fixed top-0 left-0">
-                <div className="flex justify-center mb-4">
-                    <Image src={logo} alt="logo" className="bg-white p-2 rounded-2xl" />
-                </div>
-                <ul>
-                    {sidebarItems.map((tab, index) => (
-                        <li key={index} className="mb-2">
-                            <button
-                                onClick={() => setActiveIndex(index)}
-                                className={`
-                                    w-full text-left px-4 py-2 rounded-md
-                                    ${activeIndex === index 
-                                        ? "bg-gray-900 text-white font-bold" 
-                                        : "hover:bg-gray-900 hover:text-white text-gray-200"
-                                    }
-                                    transition-colors duration-200
-                                `}
-                            >
-                                {tab.label}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            </aside>
+  const ActiveComponent = sidebarItems[activeIndex].component;
 
-            {/* মেইন কন্টেন্টের জন্য পরিবর্তিত কোড */}
-            <main className="ml-64 flex-1 p-5 bg-gray-100">
-                <ActiveComponent />
-            </main>
+  return (
+    <div className="relative min-h-screen">
+      {/* Mobile Navbar */}
+      <div className="lg:hidden fixed top-0 left-0 w-full bg-red-950 text-white flex items-center justify-between px-4 py-3 shadow-md z-50">
+        <div className="flex items-center gap-2">
+          <Image src={logo} alt="logo" width={40} height={40} className="rounded-xl" />
+          <span className="font-bold">Lender Dashboard</span>
         </div>
-    );
+        <button onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </div>
+
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed top-0 left-0 h-screen w-64 bg-red-950 text-white p-4 z-40
+          transform transition-transform duration-300 ease-in-out
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          lg:translate-x-0 lg:rounded-r-2xl
+        `}
+      >
+        <div className="flex justify-center mt-14 mb-4">
+          <Image
+            src={logo}
+            alt="logo"
+            width={80}
+            height={80}
+            className="bg-white p-2 rounded-2xl"
+          />
+        </div>
+        <ul>
+          {sidebarItems.map((tab, index) => (
+            <li key={index} className="mb-2">
+              <button
+                onClick={() => {
+                  setActiveIndex(index);
+                  setIsOpen(false);
+                }}
+                className={`
+                  w-full text-left px-4 py-2 rounded-md
+                  ${
+                    activeIndex === index
+                      ? "bg-gray-900 text-white font-bold"
+                      : "hover:bg-gray-900 hover:text-white text-gray-200"
+                  }
+                  transition-colors duration-200
+                `}
+              >
+                {tab.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </aside>
+
+      {/* Overlay for mobile drawer */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-30 z-30 lg:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Main Content */}
+      <main className="bg-gray-100 p-5 mt-14 lg:mt-0 lg:ml-64 min-h-screen">
+        <ActiveComponent />
+      </main>
+    </div>
+  );
 };
 
 export default Sidebar;

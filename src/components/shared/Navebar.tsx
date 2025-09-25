@@ -9,122 +9,142 @@ import { useAuthStore } from "../store/authStore";
 import { usePathname } from "next/navigation";
 
 const Navbar = () => {
-  const [menu, setMenu] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { user, isLoggedIn } = useAuthStore();
   const pathname = usePathname();
-  const first = user?.email ? user.email.charAt(0) : '';
-  const firstLetter = first.toUpperCase();
-  const handleMenuClick = () => {
-    setMenu(false);
-  };
+
+  const firstLetter = user?.email ? user.email.charAt(0).toUpperCase() : "";
+
+  const links = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+  ];
+
+  const handleMenuClick = () => setMenuOpen(false);
 
   return (
-    <div>
-      <div className="flex justify-between items-center py-2 px-4 md:px-16 lg:px-20 bg-white shadow-md">
+    <nav className="relative w-full bg-white shadow-md">
+      {/* Top Navbar */}
+      <div className="flex justify-between items-center py-2 px-4 md:px-16 lg:px-20">
+        {/* Logo */}
         <Link href="/">
           <Image src={logo} alt="logo" width={80} height={40} />
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:block">
-          <ul className="flex gap-3 text-[15px] text-gray-600">
-            <li>
-              <Link href="/" className={pathname === '/' ? 'font-bold text-black' : ''}>Home</Link>
+        <ul className="hidden md:flex gap-6 text-gray-600 font-medium">
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className={pathname === link.href ? "font-bold text-black" : ""}
+              >
+                {link.label}
+              </Link>
             </li>
-            <li>
-              <Link href="/about" className={pathname === '/about' ? 'font-bold text-black' : ''}>About</Link>
-            </li>
-          </ul>
-        </div>
+          ))}
+        </ul>
 
-        {/* User/Auth Button */}
-        <div className="md:block hidden">
+        {/* Desktop Auth / User */}
+        <div className="hidden md:flex items-center gap-4">
           {isLoggedIn ? (
-            <div className="dropdown dropdown-bottom">
-  <div
-    tabIndex={0}
-    role="button"
-    className="btn btn-circle bg-red-950 text-white text-2xl"
-  >
-    {firstLetter}
-  </div>
-  <ul
-    tabIndex={0}
-    className="dropdown-content menu bg-gray-200 text-black rounded-box z-1 w-24 p-2 shadow left-1/2 -translate-x-1/2 justify-center items-center"
-  >
-    <li>
-      <Link
-        href={user?.role==="user"?'/profile':"/home"}
-        className={`${pathname === '/profile' ? 'font-bold text-black' : ''} hover:bg-red-950 hover:text-white text-center`}
-      >
-        {user?.role==="user"?"Profile":"Dashboard"}
-      </Link>
-    </li>
-    <li>
-      <Link
-        href={user?.role==="user"?'/account':"/"}
-        className={`${pathname === '/account' ? 'font-bold text-black' : ''} hover:bg-red-950 hover:text-white text-center`}
-      >
-        {user?.role==="user"?"Account":""}
-      </Link>
-    </li>
-  </ul>
-</div>
-
-
+            <div className="dropdown dropdown-bottom dropdown-end">
+              <div
+                tabIndex={0}
+                className="btn btn-circle bg-red-950 text-white text-2xl cursor-pointer"
+              >
+                {firstLetter}
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-gray-200 text-black rounded-box w-32 p-2 shadow"
+              >
+                <li>
+                  <Link
+                    href={user?.role === "user" ? "/profile" : "/lender"}
+                    className="text-center hover:bg-red-950 hover:text-white"
+                  >
+                    {user?.role === "user" ? "Profile" : "Dashboard"}
+                  </Link>
+                </li>
+                {user?.role === "user" && (
+                  <li>
+                    <Link
+                      href="/account"
+                      className="text-center hover:bg-red-950 hover:text-white"
+                    >
+                      Account
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            </div>
           ) : (
-            <Link href="/signup" passHref>
-              <button className="bg-red-900 rounded-sm px-2 text-white text-[13px] py-1 cursor-pointer">
+            <Link href="/signup">
+              <button className="bg-red-900 rounded-sm px-3 py-1 text-white text-sm">
                 Sign Up
               </button>
             </Link>
           )}
         </div>
 
-        {/* Responsive Menu Button */}
-        <button className="cursor-pointer md:hidden" onClick={() => setMenu(!menu)}>
-          <RiMenu2Line size={20} className="text-black" />
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-black"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <RiMenu2Line size={24} />
         </button>
       </div>
 
-      {/* Responsive Menu */}
-      <div className={`${menu ? "block" : "hidden"} md:hidden`}>
-        <div className="relative">
-          <ul className="text-[14px] text-gray-600 w-full absolute top-0 right-0 bg-gray-200 px-7 py-4 z-10">
-            <li>
-              <Link href="/" onClick={handleMenuClick}>Home</Link>
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden bg-gray-100 overflow-hidden transition-all duration-300 ${
+          menuOpen ? "max-h-screen py-4" : "max-h-0"
+        }`}
+      >
+        <ul className="flex flex-col gap-3 px-6 text-black">
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                onClick={handleMenuClick}
+                className={pathname === link.href ? "font-bold text-black" : ""}
+              >
+                {link.label}
+              </Link>
             </li>
-            <li>
-              <Link href="/about" onClick={handleMenuClick}>About</Link>
-            </li>
-            <li>
-              <Link href="/client" onClick={handleMenuClick}>Client</Link>
-            </li>
-            {isLoggedIn ? (
-              <li className="mt-2">
-                <Link href="/profile" onClick={handleMenuClick}>
-                  <Image
-                    src={logo}
-                    alt="profile img"
-                    width={40}
-                    height={40}
-                    className="w-10 h-10 rounded-full border border-blue-700"
-                  />
+          ))}
+          {isLoggedIn ? (
+            <>
+              <li className="text-black">
+                <Link
+                  href={user?.role === "user" ? "/profile" : "/lender"}
+                  onClick={handleMenuClick}
+                >
+                  {user?.role === "user" ? "Profile" : "Dashboard"}
                 </Link>
               </li>
-            ) : (
-              <li className="mt-2">
-                <Link href="/signup" onClick={handleMenuClick} passHref>
-                  <button className="bg-red-900 rounded-sm px-2 text-white text-[13px] py-1 cursor-pointer">
-                    Sign Up
-                  </button>
-                </Link>
-              </li>
-            )}
-          </ul>
-        </div>
+              {user?.role === "user" && (
+                <li className="text-black">
+                  <Link href="/account" onClick={handleMenuClick}>
+                    Account
+                  </Link>
+                </li>
+              )}
+            </>
+          ) : (
+            <li>
+              <Link href="/signup" onClick={handleMenuClick}>
+                <button className="bg-red-900 rounded-sm px-3 py-1 text-white text-sm w-full">
+                  Sign Up
+                </button>
+              </Link>
+            </li>
+          )}
+        </ul>
       </div>
-    </div>
+    </nav>
   );
 };
 

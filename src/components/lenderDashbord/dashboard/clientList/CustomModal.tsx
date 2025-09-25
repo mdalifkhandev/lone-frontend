@@ -1,7 +1,7 @@
 "use client";
 
 import { useApproveLone } from '@/components/api/server/applyLone';
-import { Client, profileInfo } from '@/components/interface/profile';
+import { Client } from '@/components/interface/profile';
 import { useAuthStore } from '@/components/store/authStore';
 import { useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
@@ -92,7 +92,7 @@ const CustomModal: React.FC<ClientDetailsProps> = ({ client }) => {
                     <div className="md:col-span-3 space-y-4 md:space-y-8 w-full h-full">
 
                         {/* Credit Passport */}
-                        <div className="bg-gray-50 p-4 rounded-md shadow-sm w-full">
+                        <div className="bg-gray-50 p-4 rounded-md shadow-sm my-15 w-full">
                             <h2 className="text-lg font-semibold mb-4">Credit Passport</h2>
                             <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-4 w-full">
                                 <div className="flex-1">
@@ -109,7 +109,7 @@ const CustomModal: React.FC<ClientDetailsProps> = ({ client }) => {
                         </div>
 
                         {/* Financial Info */}
-                        <div className="bg-gray-50 p-4 rounded-md shadow-sm w-full">
+                        <div className="my-15 bg-gray-50 p-4 rounded-md shadow-sm w-full">
                             <h2 className="text-lg font-semibold mb-4">Financial Information</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700 w-full">
                                 <p>Annual Income  (FCFA): {client?.profileId?.financialInfo?.annualIncome}</p>
@@ -121,7 +121,7 @@ const CustomModal: React.FC<ClientDetailsProps> = ({ client }) => {
                         </div>
 
                         {/* Decision Section */}
-                        <div className="bg-gray-50 p-4 rounded-md shadow-sm w-full">
+                        <div className="my-15 bg-gray-50 p-4 rounded-md shadow-sm w-full">
                             <h2 className="text-lg font-semibold mb-4">Decision</h2>
                             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4">
                                 <button

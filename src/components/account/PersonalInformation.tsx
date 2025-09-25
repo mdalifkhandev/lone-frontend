@@ -7,6 +7,7 @@ import FormInput from "../custom/FromInput";
 import { useGetUser } from "../api/server/user";
 import { useGetSingleProfile, useUpdateAndCreateProfile } from "../api/server/profileApi";
 import { toast } from "react-toastify";
+import SecurityModal from "../lenderDashbord/setting/SecurityModal";
 
 export const metadata={
     title:'Profile Account'
@@ -64,12 +65,19 @@ const PersonalInformation = () => {
     <div>
       <div className='flex justify-between items-center py-2 bg-gray-200 px-5 rounded-sm'>
         <p className='font-semibold text-black text-md'>Personal Information</p>
+        <div className="flex gap-3">
+        <span
+        className={`text-black ${userLoginData?.role==="user" ? "hidden" : "block"} text-sm font-semibold cursor-pointer flex items-center gap-1`}
+        >
+         <SecurityModal />
+        </span>
         <button
           onClick={() => setUpdateProfile(true)}
           className={`${updateProfile ? "hidden" : "block"} text-sm text-black font-semibold cursor-pointer flex items-center gap-1`}
-        >
+          >
           <MdOutlineEditNote size={25} />Update Profile
         </button>
+          </div>
       </div>
       <form onSubmit={handleSubmit(handleUpdateProfile)} className='mt-5 md:space-y-3 space-y-1'>
         <div className='flex flex-col md:flex-row gap-3'>

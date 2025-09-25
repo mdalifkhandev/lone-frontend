@@ -3,12 +3,11 @@
 import { FaLongArrowAltRight } from "react-icons/fa";
 import industrySolutions from "../data/industrySolutions";
 
-// Make sure your industrySolutions data file is correctly typed.
-// The provided file should be a .ts or .tsx file.
+
 
 const IndustrySolution = () => {
   return (
-    <div className="py-7 md:my-11 lg:pt-52 lg:pb-20 px-5 md:px-14 lg:px-24 bg-gray-100">
+    <div className="py-7 mt-[50px] md:my-11 lg:pt-52 lg:pb-20 px-5 md:px-14 lg:px-24 bg-gray-100">
       <div className="text-center space-y-1 md:space-y-2 lg:space-y-3">
         <h1 className="text-xl font-bold md:text-2xl lg:text-4xl text-red-950">
           Our Industry Solutions
