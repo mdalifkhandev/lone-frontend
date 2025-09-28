@@ -31,9 +31,12 @@ const Sidebar: React.FC = () => {
       onSuccess: () => {
         logout();
         toast.success('Log Out successfully')
+        router.push('/');
+      },
+      onError:()=>{
+        toast.error('LogOut Faild !!!!')
       }
     })
-    router.push('/');
   }
 
   return (
@@ -91,9 +94,8 @@ const Sidebar: React.FC = () => {
           <li className="w-full text-left px-4 py-2 rounded-md text-red-500 hover:bg-red-500 hover:text-white font-bold cursor-pointer">
             <button
               onClick={handelLogout}
-              disabled={!email || isPending} 
-              className={`w-full text-left cursor-pointer ${(!email || isPending) ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+              disabled={!email || isPending}
+              className={`w-full text-left cursor-pointer ${(!email || isPending) ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               {isPending ? "Logging out..." : "Log Out"}
             </button>
