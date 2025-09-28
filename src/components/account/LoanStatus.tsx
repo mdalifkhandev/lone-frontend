@@ -14,7 +14,6 @@ const LoanStatus: React.FC = () => {
 
   const status = loanData?.data?.data?.status;
   const data = loanData?.data?.data
-  console.log(loanData?.data.data);
   
 
   return (

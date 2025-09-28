@@ -81,7 +81,7 @@ const CustomModal: React.FC<ClientDetailsProps> = ({ client }) => {
                 }
             })
         } else {
-            console.log("⚠️ No decision selected yet.");
+            toast.error("⚠️ No decision selected yet.");
         }
     };
 

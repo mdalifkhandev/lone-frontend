@@ -146,9 +146,9 @@ const FinancialInfo: React.FC<FinancialInfoProps> = ({
                                 type="radio"
                                 name="existingLoan"
                                 value="yes"
-                                className="radio radio-sm accent-red-950"
+                                className="radio radio-sm accent-red-500 text-red-950"
                             />
-                            <p className="text-sm">Yes</p>
+                            <p className="text-sm text-red-950">Yes</p>
                         </div>
                         <div className="flex items-center gap-2">
                             <input
@@ -156,9 +156,9 @@ const FinancialInfo: React.FC<FinancialInfoProps> = ({
                                 type="radio"
                                 name="existingLoan"
                                 value="no"
-                                className="radio radio-sm accent-red-950"
+                                className="radio radio-sm accent-red-500 text-red-950"
                             />
-                            <p className="text-sm">No</p>
+                            <p className="text-sm text-red-950">No</p>
                         </div>
                     </div>
                 </div>

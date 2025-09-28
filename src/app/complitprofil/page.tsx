@@ -20,7 +20,7 @@ const CompleteProfile = () => {
     const contact=data?.data?.data?.contactInfo
     const personal=data?.data?.data?.personalInfo
     const financial=data?.data?.data?.financialInfo
-    const userId=data?.data?.data?.userId._id
+    const userId=user?._id as string
     
 
     const steps = [

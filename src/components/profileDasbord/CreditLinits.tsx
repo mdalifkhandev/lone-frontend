@@ -37,11 +37,10 @@ const CreditLimits = ({ totalIncome, profile }: { totalIncome: number, profile: 
         mutate(applicationData, {
             onSuccess: (response) => {
                 toast.success(response.data.message)
-                console.log(response.data.message);
 
             },
-            onError: (response) => {
-                console.log(response);
+            onError: () => {
+                toast.error('Faild and Error')
             }
         })
     }

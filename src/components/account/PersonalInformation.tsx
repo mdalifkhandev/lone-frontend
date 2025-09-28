@@ -59,7 +59,7 @@ const PersonalInformation = () => {
         setUpdateProfile(false)
       },
       onError: (err) => {
-        console.log(err);
+        toast.error('Update Faild !')
       }
     })
   };

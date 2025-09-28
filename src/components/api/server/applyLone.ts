@@ -37,10 +37,9 @@ export const useGetSingleLone=(id:string,email:string)=>{
         queryKey:['getSingleLone', id,email],
         queryFn:async({queryKey})=>{
             const [,id,email]=queryKey
-            console.log(queryKey)
             const response= await clientAPI.get(`/lone/${id}?email=${email}`)
             return response
         },
-        // enabled: !!id && !!email,
+        enabled: !!id && !!email,
     })
 }
