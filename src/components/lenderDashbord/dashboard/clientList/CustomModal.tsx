@@ -25,7 +25,7 @@ const CustomModal: React.FC<ClientDetailsProps> = ({ client }) => {
 
     const { user } = useAuthStore();
     const name = `${client?.profileId?.personalInfo?.firstName} ${client?.profileId?.personalInfo?.lastName}`;
-    // console.log(client);
+
 
 
     const handleSubmit = () => {

@@ -1,8 +1,7 @@
-// store/authStore.ts
+
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-// Define the shape of your user data
 interface User {
   name: string;
   email: string;
@@ -11,7 +10,7 @@ interface User {
   phone:string
 }
 
-// Define the state and actions of your authentication store
+
 interface AuthState {
   token: string | null;
   user: User | null;
@@ -20,7 +19,7 @@ interface AuthState {
   logout: () => void;
 }
 
-// Create the store with TypeScript and persistence
+
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({

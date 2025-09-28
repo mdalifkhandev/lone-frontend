@@ -3,7 +3,6 @@ import Image from "next/image";
 import { CiLocationOn, CiPhone } from "react-icons/ci";
 import { MdOutlineMailOutline } from "react-icons/md";
 
-// Assuming your logo is located in the `public` folder
 import logo from "../assets/logo.png";
 
 const Footer = () => {
@@ -15,7 +14,7 @@ const Footer = () => {
             className="bg-white p-2 rounded-xl" 
             src={logo} 
             alt="Logo" 
-            width={120} // Add width and height for Next.js Image component
+            width={120} 
             height={40}
           />
           <p className="text-sm mt-2 max-w-sm">

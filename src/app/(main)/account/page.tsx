@@ -11,6 +11,8 @@ import Security from '@/components/account/Security';
 import LoanStatus from '@/components/account/LoanStatus';
 import image from '@/components/assets/logo.png'
 import { useRouter } from 'next/navigation';
+import { useLogout } from '@/components/api/server/auth';
+import { toast } from 'react-toastify';
 
 interface ProfileLink {
     id: number;
@@ -47,9 +49,17 @@ const ProfileLayout = () => {
     const router = useRouter();
     const [activeComponent, setActiveComponent] = useState('personal-info');
     const { user, logout } = useAuthStore();
+    const { mutate } = useLogout()
+
+    const email = user?.email as string
 
     const handleSignOut = () => {
-        logout();
+        mutate((email), {
+            onSuccess: () => {
+                logout();
+                toast.success('Log Out successfully')
+            }
+        })
         router.push('/');
     };
 

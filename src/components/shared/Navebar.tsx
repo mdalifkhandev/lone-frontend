@@ -81,7 +81,7 @@ const Navbar = () => {
             </div>
           ) : (
             <Link href="/signup">
-              <button className="bg-red-900 rounded-sm px-3 py-1 text-white text-sm">
+              <button className="bg-red-900 rounded-sm px-3 py-1 text-white text-sm cursor-pointer">
                 Sign Up
               </button>
             </Link>
@@ -136,7 +136,7 @@ const Navbar = () => {
           ) : (
             <li>
               <Link href="/signup" onClick={handleMenuClick}>
-                <button className="bg-red-900 rounded-sm px-3 py-1 text-white text-sm w-full">
+                <button className="bg-red-900 rounded-sm px-3 py-1 text-white text-sm w-full cursor-pointer">
                   Sign Up
                 </button>
               </Link>

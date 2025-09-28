@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useUpdatePassword } from "../api/server/auth";
 import { UpdathPassword } from "../interface";
 import { AxiosError } from "axios";
+import { useAuthStore } from "../store/authStore";
 
 
 const getStringValue = (value: FormDataEntryValue | null): string => {
@@ -14,6 +15,8 @@ const getStringValue = (value: FormDataEntryValue | null): string => {
 
 
 const Security: React.FC = () => {
+  const {user}=useAuthStore()
+  const email=user?.email as string
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState<boolean>(false);
@@ -41,6 +44,7 @@ const Security: React.FC = () => {
     }
 
     const newUpdatedPassword: UpdathPassword = {
+      email,
       confirmNewPassword,
       currentPassword,
       newPassword

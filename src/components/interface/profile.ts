@@ -37,6 +37,7 @@ export interface User {
 }
 
 export type applyLoneFrom={
+    email?:string
     userId?:string;
     profileId?:string;
     loanAmount?:number|string;

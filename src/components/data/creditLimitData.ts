@@ -1,7 +1,4 @@
-// data/CreditLimitData.ts
 
-// 1. Define the type for a single credit limit object.
-//    This makes your code more reliable and easier to read.
 export interface CreditLimitTier {
   id: number;
   tag: string;
@@ -12,7 +9,6 @@ export interface CreditLimitTier {
   color: string;
 }
 
-// 2. Add the type to your data array.
 const creditLimitData: CreditLimitTier[] = [
   {
     id: 1,

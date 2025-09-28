@@ -3,9 +3,12 @@ import ClientStatus from './ClientStatus';
 import ClientList from './clientList/ClientList';
 import { useGetApplyLone } from '@/components/api/server/applyLone';
 import { Client } from '@/components/interface/profile';
+import { useAuthStore } from '@/components/store/authStore';
 
 const Main = () => {
-    const { data: loanApplications } = useGetApplyLone();
+    const {user}=useAuthStore()
+    const email=user?.email as string
+    const { data: loanApplications } = useGetApplyLone(email);
     const loanApplicationsData: Client[] = loanApplications?.data || [];
     
     const creditRequestStatus = {

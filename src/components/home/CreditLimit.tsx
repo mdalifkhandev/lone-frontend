@@ -3,7 +3,6 @@
 import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import creditLimitData from "../data/creditLimitData";
 
-// Define the shape of a single tier item for TypeScript
 export interface CreditLimitTier {
   id: number;
   tag: string;

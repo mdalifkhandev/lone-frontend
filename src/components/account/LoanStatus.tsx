@@ -10,11 +10,12 @@ import rejected from "@/components/assets/reject.png";
 
 const LoanStatus: React.FC = () => {
   const { user } = useAuthStore();
-  const { data: loanData } = useGetSingleLone(user?._id ?? "");
+  const { data: loanData } = useGetSingleLone(user?._id ?? "",user?.email??'');
 
-  // adjust according to your API response shape
   const status = loanData?.data?.data?.status;
-  const notes = loanData?.data?.data?.notes;
+  const data = loanData?.data?.data
+  console.log(loanData?.data.data);
+  
 
   return (
     <div>
@@ -22,18 +23,18 @@ const LoanStatus: React.FC = () => {
         <div className="px-3 py-5 shadow-md bg-white rounded-sm space-y-4 text-black">
           <div>
             <h3 className="text-red-950 font-semibold">Loan Amount</h3>
-            <p className="mt-2">${1000}</p>
+            <p className="mt-2">${data?.ApproveLoanAmount}</p>
           </div>
           <div>
             <h3 className="text-red-950 font-semibold">Interest Rate</h3>
-            <p className="mt-2">{1000}%</p>
+            <p className="mt-2">{data?.interested}%</p>
           </div>
           <div>
             <h3 className="text-red-950 font-semibold">Terms (months)</h3>
-            <p className="mt-2">12 Month</p>
+            <p className="mt-2">{data.termMonth} Month</p>
           </div>
           <p className="text-red-950 font-semibold text-[16px]">
-            **Note: {notes}
+            **Note: {data.note}
           </p>
         </div>
       ) : status === "rejected" ? (

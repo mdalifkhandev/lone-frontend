@@ -1,7 +1,7 @@
 export const getCreditScore = (income: number) => {
     const maxIncome = 100000;
     if (typeof income !== "number" || isNaN(income)) {
-        return { creditScore: 0, creditTag: "Unknown" };  // ✅ fallback
+        return { creditScore: 0, creditTag: "Unknown" };  
     }
     const percent = Math.round(Math.min((income / maxIncome) * 100, 100))
     let tag = "Poor"

@@ -12,13 +12,14 @@ export const useApplyLone=()=>{
     })
 }
 
-export const useGetApplyLone=()=>{
+export const useGetApplyLone=(email:string)=>{
     return useQuery({
         queryKey:['getApplyLone'],
         queryFn:async()=>{
-            const response= await clientAPI.get('/lone')
+            const response= await clientAPI.get(`/lone?email=${email}`)
             return response.data
-        }
+        },
+        enabled:!!email
     })
 }
 
@@ -31,13 +32,15 @@ export const useApproveLone=()=>{
     })
 }
 
-export const useGetSingleLone=(id:string)=>{
+export const useGetSingleLone=(id:string,email:string)=>{
     return useQuery({
-        queryKey:['getSingleLone', id],
-        queryFn:async()=>{
-            const response= await clientAPI.get(`/lone/${id}`)
+        queryKey:['getSingleLone', id,email],
+        queryFn:async({queryKey})=>{
+            const [,id,email]=queryKey
+            console.log(queryKey)
+            const response= await clientAPI.get(`/lone/${id}?email=${email}`)
             return response
         },
-        enabled:!!id
+        // enabled: !!id && !!email,
     })
 }

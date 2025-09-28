@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { useUpdatePassword } from "@/components/api/server/auth";
 import { UpdathPassword } from "@/components/interface";
+import { useAuthStore } from "@/components/store/authStore";
 
 const getStringValue = (value: FormDataEntryValue | null): string => {
   return value ? (typeof value === 'string' ? value : value.name || '') : '';
@@ -16,6 +17,8 @@ const SecurityModal: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState<boolean>(false);
+  const {user}=useAuthStore()
+  const email=user?.email as string
 
   const { mutate, status } = useUpdatePassword();
 
@@ -37,6 +40,7 @@ const SecurityModal: React.FC = () => {
     }
 
     const newUpdatedPassword: UpdathPassword = {
+      email,
       confirmNewPassword,
       currentPassword,
       newPassword

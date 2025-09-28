@@ -6,7 +6,7 @@ import { LoginData } from "@/components/interface";
 import FormInput from "@/components/custom/FromInput";
 import { useState } from "react";
 import Link from "next/link";
-import { FaLock } from "react-icons/fa"; // Added FaLock icon
+import { FaLock } from "react-icons/fa"; 
 import { useUserLogin } from "@/components/api/server/auth";
 import { toast } from "react-toastify";
 import { useAuthStore } from "@/components/store/authStore";
@@ -24,7 +24,7 @@ const Page = () => {
     defaultValues: {
       email: '',
       password: '',
-      remember: false, // Added the 'remember' field
+      remember: false,
     }
   });
 
@@ -88,7 +88,7 @@ const Page = () => {
               <input
                 type="checkbox"
                 id="remember"
-                {...register("remember")} // Added register here
+                {...register("remember")} 
                 className="mr-2 h-4 w-4 text-red-950 focus:ring-red-950 border-gray-300 rounded"
               />
               <label htmlFor="remember" className="text-sm text-gray-700">Remember me</label>
@@ -102,7 +102,7 @@ const Page = () => {
 
           <button
             type="submit"
-            disabled={status === 'pending'} // Added disabled prop
+            disabled={status === 'pending'} 
             className={`w-full bg-red-950 text-white text-sm py-2 rounded-sm cursor-pointer ${status === 'pending' ? 'opacity-50' : ''}`}
           >
             {status === 'pending' ? 'Signing In...' : 'Sign In'}

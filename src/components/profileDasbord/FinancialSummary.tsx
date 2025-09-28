@@ -6,7 +6,6 @@ import { BiWallet } from "react-icons/bi";
 import { VscGraph } from "react-icons/vsc";
 import { getPersentage } from '../utils/getPersentage';
 
-// Define the shape of the financialInfo prop for type safety
 interface FinancialInfoProps {
   financialSummaryData?: {
     annualIncome?: number;
@@ -16,7 +15,6 @@ interface FinancialInfoProps {
 }
 
 const FinancialSummary: React.FC<FinancialInfoProps> = ({ financialSummaryData }) => {
-  // Use optional chaining and nullish coalescing for safe access
   const annualIncome = financialSummaryData?.annualIncome ?? 0;
   const valueOfLandOwnership = financialSummaryData?.valueOfLandOwnership ?? 0;
   const debtRatio = getPersentage(100000,17,financialSummaryData?.totalIncome ?? 0)

@@ -6,6 +6,10 @@ import { Menu, X } from "lucide-react";
 import logo from "@/components/assets/logo.png";
 import Main from "../dashboard/Main";
 import Setting from "../setting/Setting";
+import { useLogout } from "@/components/api/server/auth";
+import { useAuthStore } from "@/components/store/authStore";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const sidebarItems = [
   { label: "Dashboard", component: Main },
@@ -15,8 +19,22 @@ const sidebarItems = [
 const Sidebar: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logout } = useAuthStore();
+  const { mutate } = useLogout()
+  const email = user?.email as string
+  const router = useRouter()
 
   const ActiveComponent = sidebarItems[activeIndex].component;
+
+  const handelLogout = () => {
+    mutate((email), {
+      onSuccess: () => {
+        logout();
+        toast.success('Log Out successfully')
+      }
+    })
+    router.push('/');
+  }
 
   return (
     <div className="relative min-h-screen">
@@ -59,10 +77,9 @@ const Sidebar: React.FC = () => {
                 }}
                 className={`
                   w-full text-left px-4 py-2 rounded-md
-                  ${
-                    activeIndex === index
-                      ? "bg-gray-900 text-white font-bold"
-                      : "hover:bg-gray-900 hover:text-white text-gray-200"
+                  ${activeIndex === index
+                    ? "bg-gray-900 text-white font-bold"
+                    : "hover:bg-gray-900 hover:text-white text-gray-200"
                   }
                   transition-colors duration-200
                 `}
@@ -71,6 +88,9 @@ const Sidebar: React.FC = () => {
               </button>
             </li>
           ))}
+          <li className="w-full text-left px-4 py-2 rounded-md text-red-500 hover:bg-red-500 hover:text-white font-bold cursor-pointer">
+            <button onClick={handelLogout} className="w-full text-left cursor-pointer" >Log Out</button>
+          </li>
         </ul>
       </aside>
 

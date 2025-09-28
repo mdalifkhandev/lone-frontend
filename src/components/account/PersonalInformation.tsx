@@ -8,6 +8,7 @@ import { useGetUser } from "../api/server/user";
 import { useGetSingleProfile, useUpdateAndCreateProfile } from "../api/server/profileApi";
 import { toast } from "react-toastify";
 import SecurityModal from "../lenderDashbord/setting/SecurityModal";
+import { useAuthStore } from "../store/authStore";
 
 export const metadata={
     title:'Profile Account'
@@ -26,8 +27,10 @@ interface IFormInput {
 
 
 const PersonalInformation = () => {
+  const {user}=useAuthStore()
+  const email=user?.email as string
   const [updateProfile, setUpdateProfile] = useState<boolean>(false);
-  const { data: userData } = useGetUser()
+  const { data: userData } = useGetUser(email)
   const userLoginData = userData?.data.data
   const { data } = useGetSingleProfile(userLoginData?._id)
   const { mutate,  } = useUpdateAndCreateProfile()

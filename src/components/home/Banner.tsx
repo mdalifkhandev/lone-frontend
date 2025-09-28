@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
-// Assume the banner image is in the public folder
 import banner from "../assets/banner.png";
 import Stat from "./Stat";
 

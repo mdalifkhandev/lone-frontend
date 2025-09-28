@@ -37,7 +37,7 @@ const ResetPassword = () => {
         mutate(data, {
             onSuccess: (response) => {
                 toast.success(response.data?.message || "OTP sent successfully!");
-                setEmail(data.email); // Store the email from the form data
+                setEmail(data.email);
                 setSendOTP(true);
             },
             onError: (error: Error) => {

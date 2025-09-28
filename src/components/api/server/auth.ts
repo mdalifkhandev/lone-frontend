@@ -28,3 +28,12 @@ export const useUpdatePassword = () => {
         }
     })
 }
+
+export const useLogout=()=>{
+    return useMutation({
+        mutationFn:async(email:string)=>{
+            const response=await clientAPI.post('/auth/logout',{email})
+            return response
+        }
+    })
+}
