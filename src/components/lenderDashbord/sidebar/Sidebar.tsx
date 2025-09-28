@@ -20,13 +20,13 @@ const Sidebar: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuthStore();
-  const { mutate } = useLogout()
+  const { mutate, isPending } = useLogout()
   const email = user?.email as string
   const router = useRouter()
 
   const ActiveComponent = sidebarItems[activeIndex].component;
-
   const handelLogout = () => {
+    if (!email) return;
     mutate((email), {
       onSuccess: () => {
         logout();
@@ -89,12 +89,18 @@ const Sidebar: React.FC = () => {
             </li>
           ))}
           <li className="w-full text-left px-4 py-2 rounded-md text-red-500 hover:bg-red-500 hover:text-white font-bold cursor-pointer">
-            <button onClick={handelLogout} className="w-full text-left cursor-pointer" >Log Out</button>
+            <button
+              onClick={handelLogout}
+              disabled={!email || isPending} 
+              className={`w-full text-left cursor-pointer ${(!email || isPending) ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+            >
+              {isPending ? "Logging out..." : "Log Out"}
+            </button>
           </li>
         </ul>
       </aside>
 
-      {/* Overlay for mobile drawer */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-30 z-30 lg:hidden"
@@ -102,7 +108,6 @@ const Sidebar: React.FC = () => {
         />
       )}
 
-      {/* Main Content */}
       <main className="bg-gray-100 p-5 mt-14 lg:mt-0 lg:ml-64 min-h-screen">
         <ActiveComponent />
       </main>
