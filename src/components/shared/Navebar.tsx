@@ -28,7 +28,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center py-2 px-4 md:px-16 lg:px-20">
         {/* Logo */}
         <Link href="/">
-          <Image src={logo} alt="logo" width={80} height={40} />
+          <Image className="cursor-pointer" src={logo} alt="logo" width={80} height={40} />
         </Link>
 
         {/* Desktop Menu */}
@@ -90,7 +90,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-black"
+          className="md:hidden text-black cursor-pointer"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <RiMenu2Line size={24} />
@@ -99,7 +99,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden bg-gray-100 overflow-hidden transition-all duration-300 ${
+        className={`md:hidden cursor-pointer bg-gray-100 overflow-hidden transition-all duration-300 ${
           menuOpen ? "max-h-screen py-4" : "max-h-0"
         }`}
       >
