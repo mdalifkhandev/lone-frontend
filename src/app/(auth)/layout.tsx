@@ -1,20 +1,24 @@
-"use client"
+"use client";
 
 import { useAuthStore } from "@/components/store/authStore";
 import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
-const layout = ({ children }: { children: ReactNode }) => {
-    const { user } = useAuthStore();
-    const router = useRouter();
-    if(user?.role){
-        return router.push('/')
+const Layout = ({ children }: { children: ReactNode }) => {
+  const { user } = useAuthStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user?.role) {
+      router.push("/");
     }
-    return (
-        <div>
-            {children}
-        </div>
-    );
+  }, [user, router]);
+
+  if (user?.role) {
+    return <div>Redirecting...</div>;
+  }
+
+  return <div>{children}</div>;
 };
 
-export default layout;
+export default Layout;

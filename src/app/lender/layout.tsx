@@ -5,43 +5,41 @@ import { useAuthStore } from "@/components/store/authStore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const layout = ({
-    children,
+const Layout = ({
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) => {
+  const { user } = useAuthStore();
+  const router = useRouter();
+  const role = user?.role;
 
-     const { user } = useAuthStore();
-      const router = useRouter();
-      const role = user?.role;
-    
-    
-      useEffect(() => {
-        if (role === undefined) return; // Wait for user to load
-        if (!role) {
-          router.replace("/login");
-          return;
-        }
-        if (role === 'user') {
-          router.replace('/account');
-        }
-      }, [role, router]);
-    
-      if (role === undefined) {
-        return <div>Loading...</div>;
-      }
-      if (!role || role === 'user') {
-        return <div>Redirecting...</div>;
-      }
+  useEffect(() => {
+    if (role === undefined) return; 
+    if (!role) {
+      router.replace("/login");
+      return;
+    }
+    if (role === "user") {
+      router.replace("/account");
+    }
+  }, [role, router]);
 
-    return (
-        <div className='bg-white'>
-            <div>
-                <Sidebar/>
-                {children}
-            </div>
-        </div>
-    );
+  if (role === undefined) {
+    return <div>Loading...</div>;
+  }
+  if (!role || role === "user") {
+    return <div>Redirecting...</div>;
+  }
+
+  return (
+    <div className="bg-white">
+      <div>
+        <Sidebar />
+        {children}
+      </div>
+    </div>
+  );
 };
 
-export default layout;
+export default Layout;

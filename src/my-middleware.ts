@@ -22,7 +22,9 @@ export async function middleware(request: NextRequest) {
             const { payload } = await jose.jwtVerify(authToken, JWT_SECRET);
             userRole = payload.role as string;
         } catch (error) {
+            console.log(error);
             return NextResponse.redirect(new URL('/login', request.url));
+            
         }
     }
 

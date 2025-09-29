@@ -58,7 +58,7 @@ const PersonalInformation = () => {
         toast.success(response.data.message)
         setUpdateProfile(false)
       },
-      onError: (err) => {
+      onError: () => {
         toast.error('Update Faild !')
       }
     })
