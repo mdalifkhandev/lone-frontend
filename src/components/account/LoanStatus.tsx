@@ -42,6 +42,11 @@ const LoanStatus: React.FC = () => {
             We&apos;re sorry, your loan was not approved at this time
           </h2>
           <Image className="h-[300px] w-auto" src={rejected} alt="Rejected" />
+          {
+            data.note && <p className="text-red-950 font-semibold text-[16px]">
+            **Note: {data.note}
+          </p>
+          }
         </div>
       ) : (
         <div className="flex flex-col items-center">

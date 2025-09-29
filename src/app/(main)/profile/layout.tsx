@@ -11,7 +11,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
 
   useEffect(() => {
-    if (role === undefined) return; // Wait for user to load
+    if (role === undefined) {
+      router.push('/login')
+    }
     if (!role) {
       router.replace("/login");
       return;

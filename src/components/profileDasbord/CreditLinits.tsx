@@ -5,7 +5,7 @@ import { getPersentage } from "../utils/getPersentage";
 import { useState } from "react";
 import { profileInfo } from "../interface/profile";
 import { useAuthStore } from "../store/authStore";
-import { useApplyLone } from "../api/server/applyLone";
+import { useApplyLone, useGetSingleLone } from "../api/server/applyLone";
 import { toast } from "react-toastify";
 
 
@@ -13,13 +13,13 @@ const CreditLimits = ({ totalIncome, profile }: { totalIncome: number, profile: 
     const totalIncomePersentage = getPersentage(100000, 100, totalIncome)
     const { mutate, status } = useApplyLone()
     const { user } = useAuthStore()
-
+    const { data: loanData } = useGetSingleLone(user?._id ?? "", user?.email ?? '');
     const [isAgreed, setIsAgreed] = useState<boolean>(false);
     const city = profile?.contactInfo?.city?.toLowerCase()
     const profileId = profile?._id
     const userId = user?._id
     const creditScore = totalIncomePersentage.percentage
-
+    const data = loanData?.data?.data
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const loanAmount = e.currentTarget.loanAmount.value
@@ -97,13 +97,21 @@ const CreditLimits = ({ totalIncome, profile }: { totalIncome: number, profile: 
                         />
                     </div>
                     <div className="flex justify-center items-center mt-5">
-                        <button
+                        {
+                            data?.status === "pending" ? <button
+                            disabled
+                            type="submit"
+                            className={`py-[6px] font-bold px-3 rounded-sm text-sm transition-all duration-300 'bg-gray-400 text-red-950 cursor-not-allowed' : 'bg-red-950  cursor-pointer'`}
+                        >
+                             Your Application is Pending
+                        </button> : <button
                             disabled={!isAgreed}
                             type="submit"
                             className={`py-[6px] px-3 rounded-sm text-sm transition-all duration-300 ${!isAgreed ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-red-950 text-gray-300 cursor-pointer'}`}
                         >
                             {status === "pending" ? "Submitting..." : "Submit Application"}
                         </button>
+                        }
                     </div>
                 </form>
             </div>

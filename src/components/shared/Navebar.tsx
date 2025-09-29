@@ -67,7 +67,7 @@ const Navbar = () => {
                     {user?.role === "user" ? "Profile" : "Dashboard"}
                   </Link>
                 </li>
-                {user?.role === "user" && (
+                {user?.role === "user" && (<>
                   <li>
                     <Link
                       href="/account"
@@ -76,6 +76,15 @@ const Navbar = () => {
                       Account
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      href="/complitprofil"
+                      className="text-center hover:bg-red-950 hover:text-white"
+                    >
+                      Profile Create
+                    </Link>
+                  </li>
+                  </>
                 )}
               </ul>
             </div>
