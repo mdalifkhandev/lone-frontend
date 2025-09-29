@@ -15,7 +15,10 @@ const Layout = ({
   const role = user?.role;
 
   useEffect(() => {
-    if (role === undefined) return; 
+    if (role === undefined){
+      router.push('/login')
+      return
+    }
     if (!role) {
       router.replace("/login");
       return;

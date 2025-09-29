@@ -80,6 +80,12 @@ const PersonalInformation = () => {
           >
           <MdOutlineEditNote size={25} />Update Profile
         </button>
+        <button
+          onClick={() => setUpdateProfile(false)}
+          className={`${updateProfile ? "block" : "hidden"} text-sm text-black font-semibold cursor-pointer flex items-center gap-1`}
+          >
+          Cansel
+        </button>
           </div>
       </div>
       <form onSubmit={handleSubmit(handleUpdateProfile)} className='mt-5 md:space-y-3 space-y-1'>
