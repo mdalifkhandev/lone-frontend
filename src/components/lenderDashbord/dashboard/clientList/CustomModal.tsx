@@ -2,7 +2,6 @@
 
 import { useApproveLone } from '@/components/api/server/applyLone';
 import { Client } from '@/components/interface/profile';
-import { useAuthStore } from '@/components/store/authStore';
 import { useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import React, { useState } from 'react';
@@ -21,12 +20,8 @@ const CustomModal: React.FC<ClientDetailsProps> = ({ client }) => {
     const [notes, setNotes] = useState<string>('');
     const [rejectReason, setRejectReason] = useState<string>('');
 
-    const { mutate: approveLoan } = useApproveLone();
-
-    const { user } = useAuthStore();
+    const { mutate: approveLoan, isPending } = useApproveLone();
     const name = `${client?.profileId?.personalInfo?.firstName} ${client?.profileId?.personalInfo?.lastName}`;
-
-
 
     const handleSubmit = () => {
         if (decision === 'approved') {
@@ -97,8 +92,8 @@ const CustomModal: React.FC<ClientDetailsProps> = ({ client }) => {
                             <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-4 w-full">
                                 <div className="flex-1">
                                     <p className="font-bold text-gray-700">{name}</p>
-                                    <p className="text-sm text-gray-600">Email: {user?.email}</p>
-                                    <p className="text-sm text-gray-600">Phone: {user?.phone}</p>
+                                    <p className="text-sm text-gray-600">Email: {client?.userId?.email}</p>
+                                    <p className="text-sm text-gray-600">Phone: {client?.userId?.phone}</p>
                                 </div>
                                 <div className="flex flex-col gap-2 text-sm text-gray-600">
                                     <p>Date of Birth: {client?.profileId?.personalInfo?.dateOfBirth && new Date(client?.profileId?.personalInfo?.dateOfBirth).toLocaleDateString()}</p>
@@ -200,10 +195,10 @@ const CustomModal: React.FC<ClientDetailsProps> = ({ client }) => {
                             <div className="mt-4 w-full">
                                 <button
                                     type="button"
-                                    className="px-4 py-2 rounded-md text-white bg-[#4B1E2F] w-full"
+                                    className={` ${isPending ? 'bg-gray-500 px-4 py-2 rounded-md text-white' : "hover:cursor-pointer hover:btn-outline hover:px-5 hover:py-2 px-4 py-2 rounded-md text-white bg-[#4B1E2F]"}  w-full `}
                                     onClick={handleSubmit}
                                 >
-                                    Submit Decision
+                                    {isPending ? 'Submit Decision....' : "Submit Decision"}
                                 </button>
                             </div>
                         </div>

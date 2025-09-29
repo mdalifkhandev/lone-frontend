@@ -3,6 +3,8 @@ export type personalInfo = {
     lastName?: string;
     dateOfBirth?: string;
     gender?: "male" | "female" | "other";
+    email?:string
+    phone?:number
 };
 
 export type contactInfo = {
